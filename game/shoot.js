@@ -55,17 +55,16 @@ function bullet_collision()
     }
     for (var i = 0; i < player1.bullets.length; i++)
     {
-        if ((Math.abs(player1.bullets[i].position.x) >= enemie.position.x && Math.abs(player1.bullets[i].position.x) <= enemie.position.x + 1
-        ) && (
-            Math.abs(player1.bullets[i].position.y) >= enemie.position.y && Math.abs(player1.bullets[i].position.y) <= enemie.position.y + 1)
-        )
+        if (Math.abs(player1.bullets[i].position.x - enemie.position.x) < 50 && Math.abs(player1.bullets[i].position.y - enemie.position.y) < 50)
         {
             console.log('Touché ' );
-            /*enemie.life --;
+            player1.bullets.splice(i, 1);
+            enemie.life --;
             if (enemie.life === 0) {
                 enemie.dead();
-            }*/
+            }
         } else {
+            console.log(' Boulette ' + player1.bullets[i].position.x + ' ' + player1.bullets[i].position.y);
             console.log(' Enemie X ' + enemie.position.x + '  ' + enemie.graphic.position.x);
             console.log(' Enemie Y ' + enemie.position.y + '  ' + enemie.graphic.position.y);
         }
