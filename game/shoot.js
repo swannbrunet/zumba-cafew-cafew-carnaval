@@ -36,6 +36,7 @@ function collisions()
 {
     bullet_collision();
     player_collision();
+    enemie_collision()
     player_falling();
 }
 
@@ -52,7 +53,23 @@ function bullet_collision()
             i--;
         }
     }
-
+    for (var i = 0; i < player1.bullets.length; i++)
+    {
+        if ((Math.abs(player1.bullets[i].position.x) >= enemie.position.x && Math.abs(player1.bullets[i].position.x) <= enemie.position.x + 1
+        ) && (
+            Math.abs(player1.bullets[i].position.y) >= enemie.position.y && Math.abs(player1.bullets[i].position.y) <= enemie.position.y + 1)
+        )
+        {
+            console.log('Touché ' );
+            /*enemie.life --;
+            if (enemie.life === 0) {
+                enemie.dead();
+            }*/
+        } else {
+            console.log(' Enemie X ' + enemie.position.x + '  ' + enemie.graphic.position.x);
+            console.log(' Enemie Y ' + enemie.position.y + '  ' + enemie.graphic.position.y);
+        }
+    }
 }
 
 function player_collision()
@@ -61,14 +78,45 @@ function player_collision()
     var x = player1.graphic.position.x + WIDTH / 2;
     var y = player1.graphic.position.y + HEIGHT / 2;
 
-    if ( x > WIDTH )
+    if ( x > WIDTH ) {
         player1.graphic.position.x -= x - WIDTH;
-    if ( x < 0 )
+    }
+    if ( x < 0 ) {
         player1.graphic.position.x -= x;
-    if ( y < 0 )
+    }
+    if ( y < 0 ) {
         player1.graphic.position.y -= y;
-    if ( y > HEIGHT )
+    }
+    if ( y > HEIGHT ) {
         player1.graphic.position.y -= y - HEIGHT;
+    }
+    player1.position = player1.graphic.position;
+
+}
+
+function enemie_collision()
+{
+    //collision between player and walls
+    var x = enemie.graphic.position.x + WIDTH / 2;
+    var y = enemie.graphic.position.y + HEIGHT / 2;
+
+    if ( x > WIDTH ) {
+        enemie.graphic.position.x -= x - WIDTH;
+        enemie.speed = -enemie.speed;
+    }
+    if ( x < 0 ) {
+        enemie.graphic.position.x -= x;
+        enemie.speed = -enemie.speed;
+    }
+    if ( y < 0 ) {
+        enemie.graphic.position.y -= y;
+        enemie.speed = -enemie.speed;
+    }
+    if ( y > HEIGHT ) {
+        enemie.graphic.position.y -= y - HEIGHT;
+        enemie.speed = -enemie.speed;
+    }
+    enemie.position = enemie.graphic.position;
 
 }
 
